@@ -1,15 +1,12 @@
 package spring.boot.rest.example;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Arrays;
 import java.util.Optional;
 
-import static org.springframework.test.web.servlet.ResultActions.*;
-
-import org.hibernate.query.criteria.internal.expression.SearchedCaseExpression.WhenClause;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -23,55 +20,52 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.demo.controller.EmployeeRestController;
-import com.demo.entity.Employee;
-import com.demo.repository.EmployeeRepository;
+import com.demo.controller.PostController;
+import com.demo.entity.Post;
+import com.demo.repository.PostRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebAppConfiguration
 @ExtendWith(MockitoExtension.class)
-@WebMvcTest(EmployeeRestController.class)
-public class EmployeeRESTController {
+@WebMvcTest(PostController.class)
+public class PostRESTController {
 
 	@Autowired
 	private MockMvc mvc;
 
 	@MockBean
-	private EmployeeRepository employeeRepository;
+	private PostRepository postRepository;
 
 	@Test
 	public void createEmployeeAPI() throws Exception {
 
-		Employee employee1 = new Employee("Amritesh", 1000, "IT");
+		
+		Post post = new Post();
+		post.setId("P1");
+		post.setTitle("My first post");
+		post.setContent("post content");
+		post.setStatus("active");
+		post.setTag("tag1,tag2,tag3");
 
-		when(employeeRepository.save(any(Employee.class))).thenReturn(employee1);
+		when(postRepository.save(any(Post.class))).thenReturn(post);
 
-		mvc.perform(post("/api/employees").content(asJsonString(employee1)).contentType(MediaType.APPLICATION_JSON)
+		mvc.perform(post("/service/posts").content(asJsonString(post)).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
-	}
-
-	@Test
-	public void getAllEmployeesAPI() throws Exception {
-		Employee employee1 = new Employee("Amritesh", 1000, "IT");
-		Employee employee2 = new Employee("Amrit", 2000, "IT");
-
-		when(employeeRepository.findAll()).thenReturn(Arrays.asList(employee1, employee2));
-
-		mvc.perform(MockMvcRequestBuilders.get("/api/employees").accept(MediaType.APPLICATION_JSON))
-				.andDo(MockMvcResultHandlers.print()).andExpect(status().isOk())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.[*].name").exists())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.[*].department").isNotEmpty());
+				.andExpect(MockMvcResultMatchers.jsonPath("$.title").exists());
 	}
 
 	@Test
 	public void getEmployeeByIdAPI() throws Exception {
-		Employee employee1 = new Employee("Amritesh", 1000, "IT");
-		employee1.setId(1l);
+		Post post = new Post();
+		post.setId("P1");
+		post.setTitle("My first post");
+		post.setContent("Updated post content");
+		post.setStatus("active");
+		post.setTag("tag1,tag2,tag3");
 
-		when(employeeRepository.findById(any(Long.class))).thenReturn(Optional.of(employee1));
+		when(postRepository.findById(any(String.class))).thenReturn(Optional.of(post));
 
-		mvc.perform(MockMvcRequestBuilders.get("/api/employees/{employeeId}", 1)
+		mvc.perform(MockMvcRequestBuilders.get("/service/post/{postId}", "P1")
 				.accept(MediaType.APPLICATION_JSON))
 				.andDo(MockMvcResultHandlers.print()).andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
