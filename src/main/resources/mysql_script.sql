@@ -1,5 +1,5 @@
-mysql> create database blog;
-mysql> use blog
+mysql> create database demoservice;
+mysql> use demoservice
 
 
 create table post(
