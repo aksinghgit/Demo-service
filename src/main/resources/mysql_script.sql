@@ -41,6 +41,28 @@ CREATE TABLE school(
    PRIMARY KEY ( school_id )
 );
 
+CREATE TABLE department(
+   department_id VARCHAR(30) NOT NULL ,
+   school_id VARCHAR(30) NOT NULL ,
+   department_name VARCHAR(100) NOT NULL,
+   department_dname VARCHAR(100) NOT NULL,
+   department_code VARCHAR(100) NOT NULL,
+   create_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   updated_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY ( department_id )
+);
+
+CREATE TABLE course(
+   course_id VARCHAR(30) NOT NULL ,
+   department_id VARCHAR(30) NOT NULL ,
+   course_name VARCHAR(100) NOT NULL,
+   course_dname VARCHAR(100) NOT NULL,
+   course_code VARCHAR(100) NOT NULL,
+   create_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   updated_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY ( course_id )
+);
+
 
 INSERT INTO country (name,country_id,abv3,abv3_alt,code,slug) VALUES
 ('Afghanistan','AF','AFG',NULL,4,'afghanistan'),
