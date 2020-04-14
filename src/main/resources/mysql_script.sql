@@ -31,12 +31,14 @@ CREATE TABLE country (
 
 
 CREATE TABLE school(
-   id VARCHAR(30) NOT NULL ,
+   school_id VARCHAR(30) NOT NULL ,
+   country_id VARCHAR(30) NOT NULL ,
+   state VARCHAR(100) NOT NULL,
    school_name VARCHAR(100) NOT NULL,
    school_dname VARCHAR(100) NOT NULL,
    create_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    updated_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   PRIMARY KEY ( id )
+   PRIMARY KEY ( school_id )
 );
 
 

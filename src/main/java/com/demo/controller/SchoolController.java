@@ -37,6 +37,12 @@ public class SchoolController {
 		return schools;
 	}
 
+	@GetMapping("/service/getschoolsbycountryid/{countryId}")
+	public List<School> getSchoolsByCountryId(@PathVariable(name = "countryId") String country_Id) {
+		List<School> schools = schoolService.getSchoolsByCountryId(country_Id);
+		return schools;
+	}
+
 	@GetMapping("/service/school/{schoolId}")
 	public School getSchool(@PathVariable(name = "schoolId") String SchoolId) {
 		return schoolService.getSchool(SchoolId);
