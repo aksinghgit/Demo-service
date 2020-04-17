@@ -302,3 +302,18 @@ INSERT INTO country (name,country_id,abv3,abv3_alt,code,slug) VALUES
 ('Yemen','YE','YEM',NULL,887,'yemen'),
 ('Zambia','ZM','ZMB',NULL,894,'zambia'),
 ('Zimbabwe','ZW','ZWE',NULL,716,'zimbabwe');
+
+
+
+# ******************* User table ******************** #
+CREATE TABLE user(
+   id VARCHAR(50) NOT NULL ,
+   username VARCHAR(50) NOT NULL,
+   fname VARCHAR(50) NOT NULL,
+   lname VARCHAR(50) NOT NULL,
+   password VARCHAR(50) NOT NULL,
+   school_id VARCHAR(50) NOT NULL,   
+   create_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   updated_ts TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   PRIMARY KEY ( id )
+);
