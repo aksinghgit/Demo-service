@@ -12,19 +12,19 @@ import lombok.Data;
  */
 @Entity
 @Data
-public class School {
+public class Department {
 
 	@Id
-	private String school_id;
+	private String department_id;
 
-	@Column(name = "country_id", nullable = false)
-	private String countryId;
+	@Column(name = "school_id", nullable = false)
+	private String schoolId;
 
-	private String state;
+	private String department_name;
 
-	private String school_name;
+	private String department_dname;
 
-	private String school_dname;
+	private String department_code;
 	
 	private Date create_ts = new Date();
 

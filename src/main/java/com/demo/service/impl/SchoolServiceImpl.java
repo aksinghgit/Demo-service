@@ -29,6 +29,11 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
+	public List<School> getSchoolsByCountryId(String country_id) {
+		return schoolRepository.findByCountryId(country_id);
+	}
+
+	@Override
 	public School saveSchool(School school) {
 		return schoolRepository.save(school);
 	}

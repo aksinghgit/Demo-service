@@ -19,4 +19,6 @@ public interface SchoolService {
  public boolean deleteSchool(String school_id);
  
  public School updateSchool(School school);
+
+ public List<School> getSchoolsByCountryId(String country_id);
 }
