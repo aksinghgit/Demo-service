@@ -12,4 +12,5 @@ import com.demo.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,String>{
 
+	public User findUserByUsername(String userName);
 }
